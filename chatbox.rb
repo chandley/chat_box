@@ -15,9 +15,17 @@ RESPONSES = { 'goodbye' => 'bye',
               'Have you been to (.*)\?' => '%{c1} is one of my favorite places.',
               'Can you play (.*) on a (.*)' => 'It\'s very difficult to play %{c1} with a %{c2}'}
 
+ 
+print 'C> '
 puts "Hello, what's your name?"
+print 'U$ '
 name = gets.chomp
+print 'C> '
 puts "Hello #{name}"
+print 'U$ '
 while(input = gets.chomp) do
+	exit if input == 'quit'
+	print 'C> '
   puts get_response(input)
+  print 'U$ '
 end
