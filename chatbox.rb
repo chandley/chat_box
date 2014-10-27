@@ -4,15 +4,18 @@ def get_response(input)
   key = RESPONSES.keys.select {|k| /#{k}/ =~ input }.sample
   /#{key}/ =~ input
   response = RESPONSES[key]
-  response.nil? ? 'sorry?' : response % { c1: $1, c2: $2}
+  response.nil? ? 'sorry?' : response % { c1: $1, c2: $2} # what does % mean in this context?
 end
 
-def colorize(text, color_code)
-  "#{color_code}#{text}e[0m"
+def show_response (response, user = :computer)
+	if user == :computer
+		print 'C> '
+		puts response.red # use colored gem
+	else
+		print 'U$ '
+		puts response
+	end
 end
-
-def red(text); colorize(text, "e[31m"); end
-def green(text); colorize(text, "e[32m"); end
 
 RESPONSES = { 'goodbye' => 'bye', 
               'sayonara' => 'sayonara', 
@@ -25,16 +28,13 @@ RESPONSES = { 'goodbye' => 'bye',
               'Can you play (.*) on a (.*)' => 'It\'s very difficult to play %{c1} with a %{c2}'}
 
  #implementation of prompts is not good...
-print 'C> '
-puts "Hello, what's your name?".red
-print 'U$ '
+show_response( "Hello, what's your name?", :computer)	
+print 'U$ ' 
 name = gets.chomp
-print 'C> '
-puts "Hello #{name}".red
+show_response( "Hello #{name}", :computer)
 print 'U$ '
 while(input = gets.chomp) do
 	exit if input == 'quit'
-	print 'C> '
-  puts get_response(input).red
+  show_response( get_response(input), :computer)
   print 'U$ '
 end
