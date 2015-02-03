@@ -1,4 +1,4 @@
-require 'colored'
+require 'colorize'
 
 def get_response(input)
   key = RESPONSES.keys.select {|k| /#{k}/ =~ input }.sample
